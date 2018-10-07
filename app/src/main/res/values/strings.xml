@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">PodstawyAndroidaProjekt</string>
+    <string name="activity_main_panel_shape">Figura</string>
+    <string name="activity_main_panel_area">Pole</string>
+    <string name="activity_main_panel_feature">Cecha</string>
+    <string name="list_item_shape_icon_description">image depicts shape</string>
+    <string name="menu_settings_title">Ustawienia</string>
+    <string name="menu_statistics_title">Statystyka</string>
+    <string name="prefs_settings_count_key">shapesCount</string>
+    <string name="prefs_settings_count_title">Liczba kształtów</string>
+    <string name="prefs_settings_min_length_key">minSideLenght</string>
+    <string name="prefs_settings_max_length_key">maxSideLenght</string>
+    <string name="prefs_settings_min_length_title">Minimalna długość boku</string>
+    <string name="prefs_settings_max_length_title">Maksymalna długość boku</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
+</resources>
