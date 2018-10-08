@@ -13,4 +13,5 @@
     <string name="prefs_settings_min_length_title">Minimalna długość boku</string>
     <string name="prefs_settings_max_length_title">Maksymalna długość boku</string>
     <string name="title_activity_statistics">StatisticsActivity</string>
+    <string name="menu_refresh_title">Refresh</string>
 </resources>

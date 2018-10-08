@@ -10,11 +10,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.kkrawczyk.podstawyandroidaprojekt.list.adapter.ShapeListAdapter;
+import com.kkrawczyk.podstawyandroidaprojekt.model.Shape;
 import com.kkrawczyk.podstawyandroidaprojekt.utilities.ShapeGenerator;
 import com.kkrawczyk.podstawyandroidaprojekt.utilities.ShapePreferencesManager;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by kkrawczyk on 10/4/2018.
@@ -28,6 +33,18 @@ public class MainActivity extends AppCompatActivity {
 
     private ShapeGenerator shapeGenerator;
     private ShapeListAdapter shapeListAdapter;
+
+    @SuppressWarnings("ComparatorCombinators")
+    @OnClick(R.id.tv_shape_indicator)
+    public void sortByShape() {
+        ArrayList<Shape> shapeArrayList = shapeListAdapter.getShapes();
+
+        Collections.sort(shapeArrayList, (o1, o2) -> {
+            return o1.getClass().getSimpleName().compareTo(o2.getClass().getSimpleName());
+        });
+
+        shapeListAdapter.swapShapesSource(shapeArrayList);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
                 startStatisticsIntent.putExtras(bundle);
                 startActivity(startStatisticsIntent);
                 break;
+            case R.id.action_refresh:
+                populateListWithShapes();
+                break;
+            default:
+                throw new IllegalArgumentException("Such menu item does not exist");
         }
 
         return super.onOptionsItemSelected(item);
