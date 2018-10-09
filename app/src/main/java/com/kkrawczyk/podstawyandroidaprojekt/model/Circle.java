@@ -1,6 +1,7 @@
 package com.kkrawczyk.podstawyandroidaprojekt.model;
 
 import com.kkrawczyk.podstawyandroidaprojekt.R;
+import com.kkrawczyk.podstawyandroidaprojekt.utilities.NumberFormatUtils;
 
 import java.io.Serializable;
 
@@ -19,12 +20,14 @@ public class Circle extends Shape implements Serializable {
 
     @Override
     public double getCalculatedArea() {
-        return Double.parseDouble(decimalFormat.format(Math.PI * pow(radius, 2)));
+        area = NumberFormatUtils.formatDouble(Math.PI * pow(radius, 2));
+        return area;
     }
 
     @Override
     public double getCalculatedFeature() {
-        return Double.parseDouble(decimalFormat.format(radius * 2));
+        feature = NumberFormatUtils.formatDouble(radius * 2);
+        return feature;
     }
 
     @Override
@@ -39,6 +42,6 @@ public class Circle extends Shape implements Serializable {
 
     @Override
     public String toString() {
-        return "KOLO o polu " + getCalculatedArea() + " " + " i srednicy " + getCalculatedFeature();
+        return "KOLO";
     }
 }

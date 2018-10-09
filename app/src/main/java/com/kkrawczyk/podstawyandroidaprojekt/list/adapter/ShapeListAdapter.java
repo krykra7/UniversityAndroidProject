@@ -25,16 +25,13 @@ public class ShapeListAdapter extends RecyclerView.Adapter<ShapeListAdapter.Shap
 
     private Context mContext;
     private ArrayList<Shape> mShapes;
+    private boolean isSorted = false;
 
     public ShapeListAdapter(Context context) {
         this.mContext = context;
     }
 
     public void swapShapesSource(ArrayList<Shape> shapes) {
-        if (mShapes == shapes) {
-            return;
-        }
-
         if (shapes != null) {
             this.mShapes = shapes;
             this.notifyDataSetChanged();
@@ -59,7 +56,7 @@ public class ShapeListAdapter extends RecyclerView.Adapter<ShapeListAdapter.Shap
         Shape currentShape = mShapes.get(position);
 
         shapeListViewHolder.shapeIconIv.setImageResource(currentShape.getImageRes());
-        shapeListViewHolder.shapeAreaTv.setText(numberAsString(currentShape.getCalculatedArea()));
+        shapeListViewHolder.shapeAreaTv.setText(String.valueOf(currentShape.getCalculatedArea()));
         shapeListViewHolder.shapeFeatureTv.setText(currentShape.getFeatureName()
                 + System.getProperty("line.separator")
                 + currentShape.getCalculatedFeature());
@@ -75,8 +72,12 @@ public class ShapeListAdapter extends RecyclerView.Adapter<ShapeListAdapter.Shap
         return mShapes.size();
     }
 
-    private String numberAsString(Double number) {
-        return String.valueOf(number);
+    public boolean isSorted() {
+        return isSorted;
+    }
+
+    public void setSorted(boolean sorted) {
+        isSorted = sorted;
     }
 
     class ShapeListViewHolder extends RecyclerView.ViewHolder {

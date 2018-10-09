@@ -40,9 +40,9 @@ public class ShapeGenerator {
         double minLength = ShapePreferencesManager.getMinSideLength(mContext);
         double maxLength = ShapePreferencesManager.getMaxSideLength(mContext);
 
-        DecimalFormat decimalFormat = new DecimalFormat(".###");
         double randomInRange = minLength + (maxLength - minLength) * Math.random();
-        return Double.parseDouble(decimalFormat.format(randomInRange));
+
+        return NumberFormatUtils.formatDouble(randomInRange);
     }
 
     private <T extends Enum<?>> T getRandomEnumValue(Class<T> enumType) {

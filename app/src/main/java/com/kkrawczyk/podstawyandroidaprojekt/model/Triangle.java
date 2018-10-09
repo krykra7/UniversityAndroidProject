@@ -1,6 +1,7 @@
 package com.kkrawczyk.podstawyandroidaprojekt.model;
 
 import com.kkrawczyk.podstawyandroidaprojekt.R;
+import com.kkrawczyk.podstawyandroidaprojekt.utilities.NumberFormatUtils;
 
 import java.io.Serializable;
 
@@ -20,12 +21,14 @@ public class Triangle extends Shape implements Serializable {
 
     @Override
     public double getCalculatedArea() {
-        return Double.parseDouble(decimalFormat.format((pow(side, 2) * sqrt(3)) / 4));
+        area = NumberFormatUtils.formatDouble((pow(side, 2) * sqrt(3)) / 4);
+        return area;
     }
 
     @Override
     public double getCalculatedFeature() {
-        return Double.parseDouble(decimalFormat.format((side * sqrt(3)) / 2));
+        feature = NumberFormatUtils.formatDouble((side * sqrt(3)) / 2);
+        return feature;
     }
 
     @Override
@@ -40,6 +43,6 @@ public class Triangle extends Shape implements Serializable {
 
     @Override
     public String toString() {
-        return "TROJKAT o polu " + getCalculatedArea() + " " + " i wysokości " + getCalculatedFeature();
+        return "TROJKAT";
     }
 }

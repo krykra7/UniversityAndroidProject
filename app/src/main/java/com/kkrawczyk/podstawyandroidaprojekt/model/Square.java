@@ -1,6 +1,7 @@
 package com.kkrawczyk.podstawyandroidaprojekt.model;
 
 import com.kkrawczyk.podstawyandroidaprojekt.R;
+import com.kkrawczyk.podstawyandroidaprojekt.utilities.NumberFormatUtils;
 
 import java.io.Serializable;
 
@@ -19,12 +20,14 @@ public class Square extends Shape implements Serializable {
 
     @Override
     public double getCalculatedArea() {
-        return Double.parseDouble(decimalFormat.format(side * side));
+        area = NumberFormatUtils.formatDouble(side * side);
+        return area;
     }
 
     @Override
     public double getCalculatedFeature() {
-        return Double.parseDouble((decimalFormat.format(side * sqrt(2))));
+        feature = NumberFormatUtils.formatDouble(side * sqrt(2));
+        return feature;
     }
 
     @Override
@@ -39,6 +42,6 @@ public class Square extends Shape implements Serializable {
 
     @Override
     public String toString() {
-        return "KWADRAT o polu " + getCalculatedArea() + " " + " i przekatnej " + getCalculatedFeature();
+        return "KWADRAT";
     }
 }

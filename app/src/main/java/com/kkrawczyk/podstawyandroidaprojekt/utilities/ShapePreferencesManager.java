@@ -15,7 +15,7 @@ public final class ShapePreferencesManager {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         String shapesCountKey = context.getString(R.string.prefs_settings_count_key);
 
-        String shapesCountValue = sp.getString(shapesCountKey, "");
+        String shapesCountValue = sp.getString(shapesCountKey, "5");
 
         return Integer.valueOf(shapesCountValue);
     }
@@ -24,17 +24,17 @@ public final class ShapePreferencesManager {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         String sideMaxLengthKey = context.getString(R.string.prefs_settings_max_length_key);
 
-        String sideMaxLengthValue = sp.getString(sideMaxLengthKey, "");
+        String sideMaxLengthValue = sp.getString(sideMaxLengthKey, "0");
 
-        return Double.valueOf(sideMaxLengthValue);
+        return NumberFormatUtils.convertStringToDouble(sideMaxLengthValue);
     }
 
     public static double getMinSideLength(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         String sideMinLengthKey = context.getString(R.string.prefs_settings_min_length_key);
 
-        String sideMinLengthValue = sp.getString(sideMinLengthKey, "");
+        String sideMinLengthValue = sp.getString(sideMinLengthKey, "1");
 
-        return Double.valueOf(sideMinLengthValue);
+        return NumberFormatUtils.convertStringToDouble(sideMinLengthValue);
     }
 }

@@ -16,6 +16,7 @@ import com.kkrawczyk.podstawyandroidaprojekt.utilities.ShapePreferencesManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,17 +34,23 @@ public class MainActivity extends AppCompatActivity {
 
     private ShapeGenerator shapeGenerator;
     private ShapeListAdapter shapeListAdapter;
+    private ArrayList<Shape> unsortedShapes;
 
     @SuppressWarnings("ComparatorCombinators")
     @OnClick(R.id.tv_shape_indicator)
     public void sortByShape() {
-        ArrayList<Shape> shapeArrayList = shapeListAdapter.getShapes();
+        sortShapeList(((o1, o2) -> o1.toString().compareTo(o2.toString())));
+    }
 
-        Collections.sort(shapeArrayList, (o1, o2) -> {
-            return o1.getClass().getSimpleName().compareTo(o2.getClass().getSimpleName());
-        });
+    @SuppressWarnings("LambdaBodyCanBeCodeBlock")
+    @OnClick(R.id.tv_area_indicator)
+    public void sortByArea() {
+        sortShapeList(((o1, o2) -> Double.compare(o1.getArea(), o2.getArea())));
+    }
 
-        shapeListAdapter.swapShapesSource(shapeArrayList);
+    @OnClick(R.id.tv_feature_indicator)
+    public void sortByFeature() {
+        sortShapeList(((o1, o2) -> Double.compare(o1.getFeature(), o2.getFeature())));
     }
 
     @Override
@@ -91,6 +98,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sortShapeList(Comparator<Shape> comparator) {
+        if (shapeListAdapter.isSorted()) {
+            shapeListAdapter.setSorted(false);
+            shapeListAdapter.swapShapesSource(unsortedShapes);
+        } else {
+            ArrayList<Shape> shapeArrayList = shapeListAdapter.getShapes();
+            unsortedShapes = new ArrayList<>(shapeArrayList);
+
+            Collections.sort(shapeArrayList, comparator);
+
+            shapeListAdapter.setSorted(true);
+            shapeListAdapter.swapShapesSource(shapeArrayList);
+        }
     }
 
     private void populateListWithShapes() {
