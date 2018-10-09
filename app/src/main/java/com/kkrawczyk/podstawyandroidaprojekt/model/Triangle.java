@@ -43,6 +43,6 @@ public class Triangle extends Shape implements Serializable {
 
     @Override
     public String toString() {
-        return "TROJKAT";
+        return TRIANGLE;
     }
 }

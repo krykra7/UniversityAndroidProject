@@ -14,4 +14,10 @@
     <string name="prefs_settings_max_length_title">Maksymalna długość boku</string>
     <string name="title_activity_statistics">StatisticsActivity</string>
     <string name="menu_refresh_title">Refresh</string>
+    <string name="statistics_iv_square_column_description">image represents square column</string>
+    <string name="statistics_iv_circle_column_description">image represents circle column</string>
+    <string name="statistics_iv_triangle_column_description">image represents triangle column</string>
+    <string name="statistics_shapes_count_label">Liczba figur:</string>
+    <string name="statistics_shapes_area_sum_label">Suma pól:</string>
+    <string name="statistics_shapes_feature_sum_label">Suma cechy:</string>
 </resources>

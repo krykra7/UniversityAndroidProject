@@ -42,6 +42,6 @@ public class Circle extends Shape implements Serializable {
 
     @Override
     public String toString() {
-        return "KOLO";
+        return CIRCLE;
     }
 }

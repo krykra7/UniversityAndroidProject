@@ -7,6 +7,10 @@ import java.io.Serializable;
  */
 public abstract class Shape implements Serializable {
 
+    public static final String SQUARE = "KWADRAT";
+    public static final String TRIANGLE = "TRINAGLE";
+    public static final String CIRCLE = "CIRCLE";
+
     protected double feature;
     protected double area;
 

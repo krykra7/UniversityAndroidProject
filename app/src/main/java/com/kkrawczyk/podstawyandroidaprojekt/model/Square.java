@@ -42,6 +42,6 @@ public class Square extends Shape implements Serializable {
 
     @Override
     public String toString() {
-        return "KWADRAT";
+        return SQUARE;
     }
 }
