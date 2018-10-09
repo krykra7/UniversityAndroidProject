@@ -23,9 +23,14 @@ import butterknife.ButterKnife;
  */
 public class ShapeListAdapter extends RecyclerView.Adapter<ShapeListAdapter.ShapeListViewHolder> {
 
+    public static final int SORTED_BY_SHAPE = 0;
+    public static final int SORTED_BY_AREA = 1;
+    public static final int SORTED_BY_FEATURE = 2;
+    public static final int UNSORTED = 4;
+
     private Context mContext;
     private ArrayList<Shape> mShapes;
-    private boolean isSorted = false;
+    private int sortType = UNSORTED;
 
     public ShapeListAdapter(Context context) {
         this.mContext = context;
@@ -72,12 +77,12 @@ public class ShapeListAdapter extends RecyclerView.Adapter<ShapeListAdapter.Shap
         return mShapes.size();
     }
 
-    public boolean isSorted() {
-        return isSorted;
+    public int getSortType() {
+        return sortType;
     }
 
-    public void setSorted(boolean sorted) {
-        isSorted = sorted;
+    public void setSortType(int sortType) {
+        this.sortType = sortType;
     }
 
     class ShapeListViewHolder extends RecyclerView.ViewHolder {

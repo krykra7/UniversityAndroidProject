@@ -39,18 +39,19 @@ public class MainActivity extends AppCompatActivity {
     @SuppressWarnings("ComparatorCombinators")
     @OnClick(R.id.tv_shape_indicator)
     public void sortByShape() {
-        sortShapeList(((o1, o2) -> o1.toString().compareTo(o2.toString())));
+        sortShapeList(((o1, o2) -> o1.toString().compareTo(o2.toString())), ShapeListAdapter.SORTED_BY_SHAPE);
     }
 
     @SuppressWarnings("LambdaBodyCanBeCodeBlock")
     @OnClick(R.id.tv_area_indicator)
     public void sortByArea() {
-        sortShapeList(((o1, o2) -> Double.compare(o1.getArea(), o2.getArea())));
+        sortShapeList(((o1, o2) -> Double.compare(o1.getArea(), o2.getArea())), ShapeListAdapter.SORTED_BY_AREA);
     }
 
     @OnClick(R.id.tv_feature_indicator)
     public void sortByFeature() {
-        sortShapeList(((o1, o2) -> Double.compare(o1.getFeature(), o2.getFeature())));
+        sortShapeList(((o1, o2) -> Double.compare(o1.getFeature(), o2.getFeature())),
+                ShapeListAdapter.SORTED_BY_FEATURE);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.shapes, menu);
+        inflater.inflate(R.menu.shapes_menu, menu);
         return true;
     }
 
@@ -100,18 +101,35 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void sortShapeList(Comparator<Shape> comparator) {
-        if (shapeListAdapter.isSorted()) {
-            shapeListAdapter.setSorted(false);
-            shapeListAdapter.swapShapesSource(unsortedShapes);
-        } else {
+    private void sortShapeList(Comparator<Shape> comparator, int requestedSortType) {
+        if (shouldSort(requestedSortType)) {
             ArrayList<Shape> shapeArrayList = shapeListAdapter.getShapes();
             unsortedShapes = new ArrayList<>(shapeArrayList);
 
             Collections.sort(shapeArrayList, comparator);
 
-            shapeListAdapter.setSorted(true);
+            shapeListAdapter.setSortType(requestedSortType);
             shapeListAdapter.swapShapesSource(shapeArrayList);
+        } else {
+            shapeListAdapter.setSortType(ShapeListAdapter.UNSORTED);
+            shapeListAdapter.swapShapesSource(unsortedShapes);
+        }
+    }
+
+    private boolean shouldSort(int requestedSortType) {
+        int currentSortType = shapeListAdapter.getSortType();
+
+        switch (currentSortType) {
+            case ShapeListAdapter.UNSORTED:
+                return true;
+            case ShapeListAdapter.SORTED_BY_SHAPE:
+                return currentSortType != requestedSortType;
+            case ShapeListAdapter.SORTED_BY_AREA:
+                return currentSortType != requestedSortType;
+            case ShapeListAdapter.SORTED_BY_FEATURE:
+                return currentSortType != requestedSortType;
+            default:
+                return false;
         }
     }
 

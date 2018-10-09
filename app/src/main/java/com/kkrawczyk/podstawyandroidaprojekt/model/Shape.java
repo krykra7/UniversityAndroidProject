@@ -22,15 +22,7 @@ public abstract class Shape implements Serializable {
         return feature;
     }
 
-    public void setFeature(double feature) {
-        this.feature = feature;
-    }
-
     public double getArea() {
         return area;
-    }
-
-    public void setArea(double area) {
-        this.area = area;
     }
 }
