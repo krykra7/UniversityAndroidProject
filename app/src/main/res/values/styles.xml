@@ -9,4 +9,9 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
+    <style name="PreferenceEditTextTheme" parent="Preference.DialogPreference.EditTextPreference">
+        <item name="android:textColorSecondary">@color/colorText</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
+    </style>
+
 </resources>

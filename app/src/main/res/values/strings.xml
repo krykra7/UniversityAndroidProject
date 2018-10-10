@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">PodstawyAndroidaProjekt</string>
+    <string name="app_name">Lista Figur</string>
     <string name="activity_main_panel_shape">Figura</string>
     <string name="activity_main_panel_area">Pole</string>
     <string name="activity_main_panel_feature">Cecha</string>
     <string name="list_item_shape_icon_description">image depicts shape</string>
     <string name="menu_settings_title">Ustawienia</string>
     <string name="menu_statistics_title">Statystyka</string>
+    <string name="menu_delete_all_title">Usuń wszystkie</string>
     <string name="menu_context_delete_title">Usuń</string>
     <string name="menu_context_duplicate_title">Duplikuj</string>
     <string name="prefs_settings_count_key">shapesCount</string>
@@ -16,6 +17,7 @@
     <string name="prefs_settings_max_length_title">Maksymalna długość boku</string>
     <string name="title_activity_statistics">StatisticsActivity</string>
     <string name="menu_refresh_title">Refresh</string>
+    <string name="menu_add_title">Add random</string>
     <string name="statistics_iv_square_column_description">image represents square column</string>
     <string name="statistics_iv_circle_column_description">image represents circle column</string>
     <string name="statistics_iv_triangle_column_description">image represents triangle column</string>

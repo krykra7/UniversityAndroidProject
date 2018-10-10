@@ -5,6 +5,7 @@
               android:orientation="horizontal"
               android:paddingBottom="@dimen/shape_list_base_padding"
               android:paddingTop="@dimen/shape_list_base_padding"
+              android:background="@color/colorAppBackground"
               android:weightSum="3">
 
     <ImageView
@@ -16,6 +17,7 @@
         android:contentDescription="@string/list_item_shape_icon_description"/>
 
     <TextView
+        android:textColor="@color/colorText"
         android:gravity="center"
         android:id="@+id/tv_list_item_area_value"
         android:layout_width="0dp"
@@ -23,6 +25,7 @@
         android:layout_weight="1"/>
 
     <TextView
+        android:textColor="@color/colorText"
         android:gravity="center"
         android:id="@+id/tv_list_item_feature_value"
         android:layout_width="0dp"

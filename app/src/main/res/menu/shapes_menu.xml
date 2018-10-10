@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:context=".MainActivity">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".MainActivity">
 
+    <item
+        android:id="@+id/action_add_random"
+        android:icon="@drawable/baseline_add_white_24dp"
+        android:title="@string/menu_add_title"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_refresh"
         android:icon="@drawable/ic_menu_refresh"
@@ -11,11 +16,17 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/menu_settings_title"
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_statistics"
+        android:orderInCategory="2"
         android:title="@string/menu_statistics_title"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_delete_all"
+        android:orderInCategory="3"
+        android:title="@string/menu_delete_all_title"
         app:showAsAction="never"/>
 </menu>

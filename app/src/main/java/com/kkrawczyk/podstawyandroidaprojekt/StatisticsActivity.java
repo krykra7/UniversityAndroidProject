@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.kkrawczyk.podstawyandroidaprojekt.model.Shape;
+import com.kkrawczyk.podstawyandroidaprojekt.utilities.ApplicationConstants;
 import com.kkrawczyk.podstawyandroidaprojekt.utilities.NumberFormatUtils;
 
 import java.util.ArrayList;
@@ -18,6 +19,16 @@ import butterknife.ButterKnife;
  * Created by kkrawczyk on 10/4/2018.
  */
 public class StatisticsActivity extends AppCompatActivity {
+
+    private static final String SQUARE_AREA_KEY = "squareArea";
+    private static final String TRIANGLE_AREA_KEY = "triangleArea";
+    private static final String CIRCLE_AREA_KEY = "circleArea";
+    private static final String SQUARE_COUNT_KEY = "squareCount";
+    private static final String TRIANGLE_COUNT_KEY = "triangleCount";
+    private static final String CIRCLE_COUNT_KEY = "circleCount";
+    private static final String SQUARE_FEATURE_KEY = "squareFeature";
+    private static final String TRIANGLE_FEATURE_KEY = "triangleFeature";
+    private static final String CIRCLE_FEATURE_KEY = "circleFeature";
 
     @BindView(R.id.tv_statistics_square_area)
     TextView squareAreaTv;
@@ -48,7 +59,8 @@ public class StatisticsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            ArrayList<Shape> shapeArrayList = (ArrayList<Shape>) extras.getSerializable(MainActivity.SHAPES_LIST_KEY);
+            ArrayList<Shape> shapeArrayList =
+                    (ArrayList<Shape>) extras.getSerializable(ApplicationConstants.SHAPES_LIST_KEY);
             if (shapeArrayList != null) {
                 prepareStatistics(shapeArrayList);
             }

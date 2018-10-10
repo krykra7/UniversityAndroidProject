@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.kkrawczyk.podstawyandroidaprojekt.list.adapter.ShapeListAdapter;
 import com.kkrawczyk.podstawyandroidaprojekt.model.Shape;
+import com.kkrawczyk.podstawyandroidaprojekt.utilities.ApplicationConstants;
 import com.kkrawczyk.podstawyandroidaprojekt.utilities.ShapeGenerator;
 import com.kkrawczyk.podstawyandroidaprojekt.utilities.ShapePreferencesManager;
 
@@ -29,8 +30,6 @@ import butterknife.OnClick;
  */
 public class MainActivity extends AppCompatActivity {
 
-    static final String SHAPES_LIST_KEY = "shapesList";
-
     @BindView(R.id.rv_shape_list)
     RecyclerView shapeListRv;
 
@@ -41,19 +40,19 @@ public class MainActivity extends AppCompatActivity {
     @SuppressWarnings("ComparatorCombinators")
     @OnClick(R.id.tv_shape_indicator)
     public void sortByShape() {
-        sortShapeList(((o1, o2) -> o1.toString().compareTo(o2.toString())), ShapeListAdapter.SORTED_BY_SHAPE);
+        sortShapeList(((o1, o2) -> o1.toString().compareTo(o2.toString())), ApplicationConstants.SORTED_BY_SHAPE);
     }
 
     @SuppressWarnings("LambdaBodyCanBeCodeBlock")
     @OnClick(R.id.tv_area_indicator)
     public void sortByArea() {
-        sortShapeList(((o1, o2) -> Double.compare(o1.getArea(), o2.getArea())), ShapeListAdapter.SORTED_BY_AREA);
+        sortShapeList(((o1, o2) -> Double.compare(o1.getArea(), o2.getArea())), ApplicationConstants.SORTED_BY_AREA);
     }
 
     @OnClick(R.id.tv_feature_indicator)
     public void sortByFeature() {
         sortShapeList(((o1, o2) -> Double.compare(o1.getFeature(), o2.getFeature())),
-                ShapeListAdapter.SORTED_BY_FEATURE);
+                ApplicationConstants.SORTED_BY_FEATURE);
     }
 
     @Override
@@ -68,8 +67,22 @@ public class MainActivity extends AppCompatActivity {
         shapeListAdapter = new ShapeListAdapter(this);
         shapeListRv.setAdapter(shapeListAdapter);
 
-        populateListWithShapes();
-        registerForContextMenu(shapeListRv);
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(ApplicationConstants.SHAPES_SAVED_INSTANCE_KEY)) {
+                //noinspection unchecked
+                shapeListAdapter.swapDataSource(
+                        (ArrayList<Shape>) savedInstanceState
+                                .getSerializable(ApplicationConstants.SHAPES_SAVED_INSTANCE_KEY));
+            }
+        } else {
+            populateListWithShapes();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(ApplicationConstants.SHAPES_SAVED_INSTANCE_KEY, shapeListAdapter.getShapes());
     }
 
     @Override
@@ -88,14 +101,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.action_statistics:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(SHAPES_LIST_KEY, shapeListAdapter.getShapes());
-                Intent startStatisticsIntent = new Intent(this, StatisticsActivity.class);
-                startStatisticsIntent.putExtras(bundle);
-                startActivity(startStatisticsIntent);
+                openStatisticsActivity();
                 break;
             case R.id.action_refresh:
                 populateListWithShapes();
+                break;
+            case R.id.action_add_random:
+                addRandomShapeToList();
+                break;
+            case R.id.action_delete_all:
+                shapeListAdapter.swapDataSource(new ArrayList<>());
                 break;
             default:
                 throw new IllegalArgumentException("Such menu item does not exist");
@@ -116,12 +131,40 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_context_delete:
+                deleteShape();
                 return true;
             case R.id.action_context_duplicate:
+                duplicateShape();
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void addRandomShapeToList() {
+        shapeListAdapter.addShapeToDataSource(shapeGenerator.getRandomShape(), ApplicationConstants.EMPTY_POSITION);
+        shapeListRv.smoothScrollToPosition(shapeListAdapter.getShapes().size());
+    }
+
+    private void openStatisticsActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ApplicationConstants.SHAPES_LIST_KEY, shapeListAdapter.getShapes());
+        Intent startStatisticsIntent = new Intent(this, StatisticsActivity.class);
+        startStatisticsIntent.putExtras(bundle);
+        startActivity(startStatisticsIntent);
+    }
+
+    private void deleteShape() {
+        ArrayList<Shape> shapes = shapeListAdapter.getShapes();
+        shapes.remove(shapeListAdapter.getPosition());
+        shapeListAdapter.swapDataSource(shapes);
+    }
+
+    private void duplicateShape() {
+        int shapePosition = shapeListAdapter.getPosition();
+        Shape shapeToDuplicate = shapeListAdapter.getShapes().get(shapePosition);
+
+        shapeListAdapter.addShapeToDataSource(shapeToDuplicate, shapePosition);
     }
 
     private void sortShapeList(Comparator<Shape> comparator, int requestedSortType) {
@@ -132,10 +175,10 @@ public class MainActivity extends AppCompatActivity {
             Collections.sort(shapeArrayList, comparator);
 
             shapeListAdapter.setSortType(requestedSortType);
-            shapeListAdapter.swapShapesSource(shapeArrayList);
+            shapeListAdapter.swapDataSource(shapeArrayList);
         } else {
-            shapeListAdapter.setSortType(ShapeListAdapter.UNSORTED);
-            shapeListAdapter.swapShapesSource(unsortedShapes);
+            shapeListAdapter.setSortType(ApplicationConstants.UNSORTED);
+            shapeListAdapter.swapDataSource(unsortedShapes);
         }
     }
 
@@ -143,13 +186,13 @@ public class MainActivity extends AppCompatActivity {
         int currentSortType = shapeListAdapter.getSortType();
 
         switch (currentSortType) {
-            case ShapeListAdapter.UNSORTED:
+            case ApplicationConstants.UNSORTED:
                 return true;
-            case ShapeListAdapter.SORTED_BY_SHAPE:
+            case ApplicationConstants.SORTED_BY_SHAPE:
                 return currentSortType != requestedSortType;
-            case ShapeListAdapter.SORTED_BY_AREA:
+            case ApplicationConstants.SORTED_BY_AREA:
                 return currentSortType != requestedSortType;
-            case ShapeListAdapter.SORTED_BY_FEATURE:
+            case ApplicationConstants.SORTED_BY_FEATURE:
                 return currentSortType != requestedSortType;
             default:
                 return false;
@@ -158,6 +201,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void populateListWithShapes() {
         int shapeCount = ShapePreferencesManager.getShapesCountAsInt(this);
-        shapeListAdapter.swapShapesSource(shapeGenerator.getShapeList(shapeCount));
+        shapeListAdapter.swapDataSource(shapeGenerator.getShapeList(shapeCount));
     }
 }

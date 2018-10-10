@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorAppBackground"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -22,7 +23,7 @@
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:text="@string/activity_main_panel_shape"
-            android:textColor="@color/color_white"/>
+            android:textColor="@color/colorText"/>
 
         <TextView
             android:id="@+id/tv_area_indicator"
@@ -32,7 +33,7 @@
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:text="@string/activity_main_panel_area"
-            android:textColor="@color/color_white"/>
+            android:textColor="@color/colorText"/>
 
         <TextView
             android:id="@+id/tv_feature_indicator"
@@ -42,12 +43,14 @@
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:text="@string/activity_main_panel_feature"
-            android:textColor="@color/color_white"/>
+            android:textColor="@color/colorText"/>
 
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_shape_list"
+        android:layout_marginTop="@dimen/activity_main_default_margin"
+        android:layout_marginBottom="@dimen/activity_main_default_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
