@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.kkrawczyk.podstawyandroidaprojekt.list.adapter.ShapeListAdapter;
 import com.kkrawczyk.podstawyandroidaprojekt.model.Shape;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         shapeListRv.setAdapter(shapeListAdapter);
 
         populateListWithShapes();
+        registerForContextMenu(shapeListRv);
     }
 
     @Override
@@ -99,6 +102,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.shape_item_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_context_delete:
+                return true;
+            case R.id.action_context_duplicate:
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void sortShapeList(Comparator<Shape> comparator, int requestedSortType) {

@@ -77,6 +77,8 @@ public class ShapeListAdapter extends RecyclerView.Adapter<ShapeListAdapter.Shap
         return mShapes.size();
     }
 
+
+
     public int getSortType() {
         return sortType;
     }
