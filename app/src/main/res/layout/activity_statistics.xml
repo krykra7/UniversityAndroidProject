@@ -7,7 +7,7 @@
     android:background="@color/colorAppBackground"
     android:orientation="vertical"
     android:weightSum="4"
-    android:layout_marginTop="@dimen/activity_statistics_default_margin"
+    android:paddingTop="@dimen/activity_statistics_default_margin"
     tools:context=".StatisticsActivity">
 
     <LinearLayout

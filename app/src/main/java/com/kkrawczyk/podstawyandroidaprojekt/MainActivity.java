@@ -1,6 +1,8 @@
 package com.kkrawczyk.podstawyandroidaprojekt;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
         sortShapeList(((o1, o2) -> o1.toString().compareTo(o2.toString())), ApplicationConstants.SORTED_BY_SHAPE);
     }
 
-    @SuppressWarnings("LambdaBodyCanBeCodeBlock")
+    @SuppressWarnings({"LambdaBodyCanBeCodeBlock", "ComparatorCombinators"})
     @OnClick(R.id.tv_area_indicator)
     public void sortByArea() {
         sortShapeList(((o1, o2) -> Double.compare(o1.getArea(), o2.getArea())), ApplicationConstants.SORTED_BY_AREA);
     }
 
+    @SuppressWarnings("ComparatorCombinators")
     @OnClick(R.id.tv_feature_indicator)
     public void sortByFeature() {
         sortShapeList(((o1, o2) -> Double.compare(o1.getFeature(), o2.getFeature())),

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceScreen;
+import android.text.Html;
 
 import com.kkrawczyk.podstawyandroidaprojekt.R;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
@@ -26,7 +27,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         for (int i = 0; i < count; i++) {
             Preference pref = preferenceScreen.getPreference(i);
             String value = sharedPreferences.getString(pref.getKey(), "");
-            pref.setSummary(value);
+            pref.setSummary(Html.fromHtml("<font color='#ffffff'>" + value + "</font>"));
         }
     }
 
