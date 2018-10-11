@@ -1,8 +1,6 @@
 package com.kkrawczyk.podstawyandroidaprojekt;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.kkrawczyk.podstawyandroidaprojekt.list.adapter.ShapeListAdapter;
 import com.kkrawczyk.podstawyandroidaprojekt.model.Shape;
@@ -34,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.rv_shape_list)
     RecyclerView shapeListRv;
+    @BindView(R.id.iv_shape_sort_indicator)
+    ImageView shapeSortIndicatorIv;
+    @BindView(R.id.iv_area_sort_indicator)
+    ImageView areaSortIndicatorIv;
+    @BindView(R.id.iv_feature_sort_indicator)
+    ImageView featureSortIndicatorIv;
 
     private ShapeGenerator shapeGenerator;
     private ShapeListAdapter shapeListAdapter;
@@ -180,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
             shapeListAdapter.setSortType(requestedSortType);
             shapeListAdapter.swapDataSource(shapeArrayList);
         } else {
+            setIndicatorsUnsorted();
             shapeListAdapter.setSortType(ApplicationConstants.UNSORTED);
             shapeListAdapter.swapDataSource(unsortedShapes);
         }
@@ -187,19 +193,50 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean shouldSort(int requestedSortType) {
         int currentSortType = shapeListAdapter.getSortType();
+        boolean shouldSort;
 
         switch (currentSortType) {
             case ApplicationConstants.UNSORTED:
                 return true;
             case ApplicationConstants.SORTED_BY_SHAPE:
-                return currentSortType != requestedSortType;
+                shouldSort = currentSortType != requestedSortType;
+
+                if (shouldSort) {
+                    shapeSortIndicatorIv.setVisibility(View.VISIBLE);
+                } else {
+                    shapeSortIndicatorIv.setVisibility(View.GONE);
+                }
+
+                return shouldSort;
             case ApplicationConstants.SORTED_BY_AREA:
-                return currentSortType != requestedSortType;
+                shouldSort = currentSortType != requestedSortType;
+
+                if (shouldSort) {
+                    areaSortIndicatorIv.setVisibility(View.VISIBLE);
+                } else {
+                    areaSortIndicatorIv.setVisibility(View.GONE);
+                }
+
+                return shouldSort;
             case ApplicationConstants.SORTED_BY_FEATURE:
-                return currentSortType != requestedSortType;
+                shouldSort = currentSortType != requestedSortType;
+
+                if (shouldSort) {
+                    featureSortIndicatorIv.setVisibility(View.VISIBLE);
+                } else {
+                    featureSortIndicatorIv.setVisibility(View.GONE);
+                }
+
+                return shouldSort;
             default:
                 return false;
         }
+    }
+
+    private void setIndicatorsUnsorted() {
+        areaSortIndicatorIv.setVisibility(View.GONE);
+        featureSortIndicatorIv.setVisibility(View.GONE);
+        shapeSortIndicatorIv.setVisibility(View.GONE);
     }
 
     private void populateListWithShapes() {

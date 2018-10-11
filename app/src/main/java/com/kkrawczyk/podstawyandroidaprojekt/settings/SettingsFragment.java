@@ -49,7 +49,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         String newValue = sharedPreferences.getString(key, "");
 
         if (preference != null) {
-            preference.setSummary(newValue);
+            preference.setSummary(Html.fromHtml("<font color='#ffffff'>" + newValue + "</font>"));
         }
     }
 }
