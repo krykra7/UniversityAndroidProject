@@ -47,8 +47,9 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="@dimen/activity_statistics_default_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/activity_statistics_segment_height"
         android:orientation="horizontal"
         android:weightSum="4">
 

@@ -112,12 +112,18 @@ public class MainActivity extends AppCompatActivity {
                 openStatisticsActivity();
                 break;
             case R.id.action_refresh:
+                setIndicatorsUnsorted();
+                shapeListAdapter.setSortType(ApplicationConstants.UNSORTED);
                 populateListWithShapes();
                 break;
             case R.id.action_add_random:
+                setIndicatorsUnsorted();
+                shapeListAdapter.setSortType(ApplicationConstants.UNSORTED);
                 addRandomShapeToList();
                 break;
             case R.id.action_delete_all:
+                setIndicatorsUnsorted();
+                shapeListAdapter.setSortType(ApplicationConstants.UNSORTED);
                 shapeListAdapter.swapDataSource(new ArrayList<>());
                 break;
             default:
@@ -185,51 +191,35 @@ public class MainActivity extends AppCompatActivity {
             shapeListAdapter.setSortType(requestedSortType);
             shapeListAdapter.swapDataSource(shapeArrayList);
         } else {
-            setIndicatorsUnsorted();
             shapeListAdapter.setSortType(ApplicationConstants.UNSORTED);
             shapeListAdapter.swapDataSource(unsortedShapes);
         }
     }
 
     private boolean shouldSort(int requestedSortType) {
-        int currentSortType = shapeListAdapter.getSortType();
-        boolean shouldSort;
-
-        switch (currentSortType) {
-            case ApplicationConstants.UNSORTED:
-                return true;
+        switch (requestedSortType) {
             case ApplicationConstants.SORTED_BY_SHAPE:
-                shouldSort = currentSortType != requestedSortType;
-
-                if (shouldSort) {
-                    shapeSortIndicatorIv.setVisibility(View.VISIBLE);
-                } else {
-                    shapeSortIndicatorIv.setVisibility(View.GONE);
-                }
-
-                return shouldSort;
+                return shouldSortHelper(requestedSortType, shapeSortIndicatorIv);
             case ApplicationConstants.SORTED_BY_AREA:
-                shouldSort = currentSortType != requestedSortType;
-
-                if (shouldSort) {
-                    areaSortIndicatorIv.setVisibility(View.VISIBLE);
-                } else {
-                    areaSortIndicatorIv.setVisibility(View.GONE);
-                }
-
-                return shouldSort;
+                return shouldSortHelper(requestedSortType, areaSortIndicatorIv);
             case ApplicationConstants.SORTED_BY_FEATURE:
-                shouldSort = currentSortType != requestedSortType;
-
-                if (shouldSort) {
-                    featureSortIndicatorIv.setVisibility(View.VISIBLE);
-                } else {
-                    featureSortIndicatorIv.setVisibility(View.GONE);
-                }
-
-                return shouldSort;
+                return shouldSortHelper(requestedSortType, featureSortIndicatorIv);
             default:
-                return false;
+                return true;
+        }
+    }
+
+    //Method decides if list should be sorted or unsorted by given type of sort
+    private boolean shouldSortHelper(int requestedSortType, ImageView areaSortIndicatorIv) {
+        int currentSortType = shapeListAdapter.getSortType();
+
+        if (requestedSortType != currentSortType) {
+            setIndicatorsUnsorted();
+            areaSortIndicatorIv.setVisibility(View.VISIBLE);
+            return true;
+        } else {
+            setIndicatorsUnsorted();
+            return false;
         }
     }
 

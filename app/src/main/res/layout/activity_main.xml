@@ -98,8 +98,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_shape_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_main_default_margin"
-        android:layout_marginTop="@dimen/activity_main_default_margin"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
