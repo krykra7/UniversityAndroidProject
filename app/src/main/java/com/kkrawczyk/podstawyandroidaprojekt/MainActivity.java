@@ -145,9 +145,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_context_delete:
+                setIndicatorsUnsorted();
+                shapeListAdapter.setSortType(ApplicationConstants.UNSORTED);
                 deleteShape();
                 return true;
             case R.id.action_context_duplicate:
+                setIndicatorsUnsorted();
+                shapeListAdapter.setSortType(ApplicationConstants.UNSORTED);
                 duplicateShape();
                 return true;
             default:

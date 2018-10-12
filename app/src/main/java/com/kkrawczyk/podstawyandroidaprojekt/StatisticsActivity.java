@@ -20,16 +20,6 @@ import butterknife.ButterKnife;
  */
 public class StatisticsActivity extends AppCompatActivity {
 
-    private static final String SQUARE_AREA_KEY = "squareArea";
-    private static final String TRIANGLE_AREA_KEY = "triangleArea";
-    private static final String CIRCLE_AREA_KEY = "circleArea";
-    private static final String SQUARE_COUNT_KEY = "squareCount";
-    private static final String TRIANGLE_COUNT_KEY = "triangleCount";
-    private static final String CIRCLE_COUNT_KEY = "circleCount";
-    private static final String SQUARE_FEATURE_KEY = "squareFeature";
-    private static final String TRIANGLE_FEATURE_KEY = "triangleFeature";
-    private static final String CIRCLE_FEATURE_KEY = "circleFeature";
-
     @BindView(R.id.tv_statistics_square_area)
     TextView squareAreaTv;
     @BindView(R.id.tv_statistics_triangle_area)

@@ -27,4 +27,5 @@
     <string name="statistics_shapes_count_label">Liczba figur:</string>
     <string name="statistics_shapes_area_sum_label">Suma pól:</string>
     <string name="statistics_shapes_feature_sum_label">Suma cechy:</string>
+    <string name="settings_fragment_wrong_argument_message">Minimalna długośc boku musi być mniejsza od maksymalnej</string>
 </resources>

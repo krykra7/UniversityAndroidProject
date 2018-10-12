@@ -86,7 +86,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         if (isCorrectValue) {
             return true;
         } else {
-            Toast.makeText(getActivity(), "Minimalna długośc boku musi być mniejsza od maksymalnej",
+            Toast.makeText(getActivity(), R.string.settings_fragment_wrong_argument_message,
                     Toast.LENGTH_LONG).show();
             return false;
         }
